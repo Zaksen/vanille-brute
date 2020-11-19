@@ -4,13 +4,14 @@ from flask_jwt import JWT, jwt_required
 from security import authenticate, identity
 from resources.postResource import Post, PostList
 from resources.userResource import UserRegister, User
+import os
 
 app = Flask(__name__)
 app.secret_key = 'zak'
 api = Api(app)
 jwt = JWT(app, authenticate, identity) # /auth
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 api.add_resource(Post, '/post/<int:id>')
