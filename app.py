@@ -13,10 +13,6 @@ jwt = JWT(app, authenticate, identity) # /auth
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
 api.add_resource(Post, '/post/<int:id>')
 api.add_resource(PostList, '/posts')
 api.add_resource(UserRegister, '/register')
