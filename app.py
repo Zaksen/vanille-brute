@@ -3,6 +3,7 @@ from flask_restful import Api
 from flask_jwt import JWT, jwt_required
 from security import authenticate, identity
 from resources.postResource import Post, PostList
+from resources.userResource import UserRegister, User
 
 app = Flask(__name__)
 app.secret_key = 'zak'
@@ -16,8 +17,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 def create_tables():
     db.create_all()
 
-api.add_resource(Post, '/post/<int:id>', '/post/')
+api.add_resource(Post, '/post/<int:id>')
 api.add_resource(PostList, '/posts')
+api.add_resource(UserRegister, '/register')
+api.add_resource(User, '/user/<string:username>')
 
 if __name__ == '__main__':
     from db import db
